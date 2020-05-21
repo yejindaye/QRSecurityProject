@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     # app
     'user_app',
     'qr_app',
-
+    'django_user_agents',
 ]
 
 MIDDLEWARE = [
@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django_user_agents.middleware.UserAgentMiddleware',
 ]
 
 ROOT_URLCONF = 'QrSecurityProject.urls'
@@ -130,3 +131,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'QrSecurityProject', 'static')
 ]
 
+# Name of cache backend to cache user agents. If it not specified default
+# cache alias will be used. Set to `None` to disable caching.
+USER_AGENTS_CACHE = 'default'
