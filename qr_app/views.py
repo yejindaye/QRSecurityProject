@@ -5,6 +5,8 @@ from django.http import HttpResponse
 import qrcode
 import cv2
 
+
+
 def visitorLogin(request):
     return render(request, 'qr_app/visitorLogin.html')
 
@@ -43,7 +45,7 @@ def householdLogin(request):
 #     request.user_agent.device  # returns Device(family='iPhone')
 #     request.user_agent.device.family  # returns 'iPhone'
 
-def qrCreate(request):
+def createQR(request):
     #faqs = Faq.objects.all()
     #context={'faqs':faqs}
     img = qrcode.make("Hello World!")
@@ -53,3 +55,4 @@ def qrCreate(request):
 
 def qrDisplay(request):
     return render(request, 'qr_app/qrDisplay.html')    
+
