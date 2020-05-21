@@ -1,4 +1,8 @@
 from django.shortcuts import render,redirect, get_object_or_404
+from __future__ import unicode_literals
+from django.http import HttpResponse
+import qrcode
+# import cv2
 
 # Create your views here.
 def visitorLogin(request):
@@ -38,3 +42,14 @@ def householdLogin(request):
 #     # Device properties
 #     request.user_agent.device  # returns Device(family='iPhone')
 #     request.user_agent.device.family  # returns 'iPhone'
+
+def createQR(request):
+    #faqs = Faq.objects.all()
+    #context={'faqs':faqs}
+    img = qrcode.make("Hello World!")
+    img.save("qrCreate_app/static/qrCreate_app/images/helloworld_qrcode.png")
+    return render(request,'qr_app/qrDisplay.html',{'qrCode': qrCode})
+
+
+
+   
