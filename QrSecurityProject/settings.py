@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # app
+    'qr_code',
     'user_app',
     'qr_app',
     'django_user_agents',

@@ -1,6 +1,21 @@
+<!DOCTYPE html>
 {% extends 'base.html' %}
+{% load static %}
+{% load qr_code %}
 {% block content %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
 <form class="contact100-form validate-form">
-    {{qrCode}}
+    <img src="http://api.qrserver.com/v1/create-qr-code/?size={{ size}}x{{ size }}&data={{qrCode}}">
 </form>
+    <!--<img src="{% static 'qr_app/images/helloworld_qrcode.png' %}"></p>-->
+
+</body>
+</html>
+
 {% endblock %}
