@@ -3,7 +3,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.shortcuts import render
 from django.http import HttpResponse
 import qrcode
-import cv2
+# import cv2
 
 
 
