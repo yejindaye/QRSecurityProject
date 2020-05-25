@@ -6,6 +6,7 @@ import pyzbar.pyzbar as pyzbar
 
 cap=cv2.VideoCapture(0)
 
+#카메라 띄우는 코드
 while True:
     _, frame= cap.read()
     decodedObjects=pyzbar.decode(frame)
