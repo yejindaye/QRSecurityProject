@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect, get_object_or_404
-from __future__ import unicode_literals
+# from __future__ import unicode_literals
 from django.http import HttpResponse
 import qrcode
 # import cv2
