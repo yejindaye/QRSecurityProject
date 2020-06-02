@@ -52,5 +52,7 @@ def createQR(request):
 
 
 def qrDisplay(request):
-    return render(request, 'qr_app/qrDisplay.html')    
+    qrCode="Os info"
+
+    return render(request, 'qr_app/qrDisplay.html',{'qrCode':qrCode})
 
