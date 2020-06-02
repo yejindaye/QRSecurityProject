@@ -2,7 +2,7 @@
 {% block content %}
 <form class="contact100-form validate-form">
     <span class="contact100-form-title">
-        ??를 선택하세요!
+        로그인 하세요
     </span>
     <!-- 세대원 로그인 -->
     <div class="container-contact100-form-btn">
@@ -28,7 +28,12 @@
             </a>
         </div>
     </div>
+    
+    <a href = "{%url 'signUp' %}" style = "display: flex; justify-content: center; align-items: center; height: 50px;">
+        <span>회원가입</span></a>
+    
 </form>
+
 {% endblock %}
 
 			

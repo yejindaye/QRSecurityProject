@@ -2,11 +2,11 @@ from django.shortcuts import render,redirect, get_object_or_404
 # from __future__ import unicode_literals
 from django.shortcuts import render
 from django.http import HttpResponse
-import qrcode
+# import qrcode
 # import cv2
 
 def visitorLogin(request):
-    return render(request, 'qr_app/visitorLogin.html')
+    return render(request, 'user_app/residentLogin.html')
 
 def householdLogin(request):
     # request.user_agent.is_mobile # returns True
@@ -16,7 +16,7 @@ def householdLogin(request):
     # request.user_agent.is_bot # returns False
     # os = request.user_agent.os
     # print(os)
-    return render(request, 'qr_app/householdLogin.html')
+    return render(request, 'user_app/residentLogin.html')
 
 # def my_view(request):
 
