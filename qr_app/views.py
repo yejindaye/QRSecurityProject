@@ -5,8 +5,6 @@ from django.http import HttpResponse
 import qrcode
 # import cv2
 
-
-
 def visitorLogin(request):
     return render(request, 'qr_app/visitorLogin.html')
 
@@ -25,7 +23,7 @@ def householdLogin(request):
 #     # Let's assume that the visitor uses an iPhone...
 #     request.user_agent.is_mobile # returns True
 #     request.user_agent.is_tablet # returns False
-#     request.user_agent.is_touch_capable # returns True
+#     request.user_agent.is_touch_capable # returns True -> 이거3개 이넘
 #     request.user_agent.is_pc # returns False
 #     request.user_agent.is_bot # returns False
 
@@ -37,9 +35,9 @@ def householdLogin(request):
 
 #     # Operating System properties
 #     request.user_agent.os  # returns OperatingSystem(family=u'iOS', version=(5, 1), version_string='5.1')
-#     request.user_agent.os.family  # returns 'iOS'
-#     request.user_agent.os.version  # returns (5, 1)
-#     request.user_agent.os.version_string  # returns '5.1'
+#     request.user_agent.os.family  # returns 'iOS' ->이거
+#     request.user_agent.os.version  # returns (5, 1)->이거
+#     request.user_agent.os.version_string  # returns '5.1' -> 이거
 
 #     # Device properties
 #     request.user_agent.device  # returns Device(family='iPhone')
