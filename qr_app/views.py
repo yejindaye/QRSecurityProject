@@ -5,19 +5,6 @@ from django.http import HttpResponse
 # import qrcode
 # import cv2
 
-def visitorLogin(request):
-    return render(request, 'user_app/residentLogin.html')
-
-def householdLogin(request):
-    # request.user_agent.is_mobile # returns True
-    # request.user_agent.is_tablet # returns False
-    # request.user_agent.is_touch_capable # returns True
-    # request.user_agent.is_pc # returns False
-    # request.user_agent.is_bot # returns False
-    # os = request.user_agent.os
-    # print(os)
-    return render(request, 'user_app/residentLogin.html')
-
 # def my_view(request):
 
 #     # Let's assume that the visitor uses an iPhone...
@@ -53,6 +40,5 @@ def createQR(request):
 
 def qrDisplay(request):
     qrCode="Os info"
-
     return render(request, 'qr_app/qrDisplay.html',{'qrCode':qrCode})
 

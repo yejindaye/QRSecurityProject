@@ -8,7 +8,7 @@
     <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
             <div class="contact100-form-bgbtn"></div>
-            <a href = "{% url 'householdLogin' %}" class="contact100-form-btn">
+            <a href = "{% url 'residentLogin' %}" class="contact100-form-btn">
                 <span>
                     세대원
                     <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
@@ -28,9 +28,10 @@
             </a>
         </div>
     </div>
-    
-    <a href = "{%url 'signUp' %}" style = "display: flex; justify-content: center; align-items: center; height: 50px;">
-        <span>회원가입</span></a>
+    <a href = "{%url 'residentSignUp' %}" style = "display: flex; justify-content: center; align-items: center; height: 50px; color: #333333 !important;">
+        <span>세대원 회원가입</span></a>
+    <a href = "{%url 'visitorSignUp' %}" style = "display: flex; justify-content: center; align-items: center; margin-top: -10px; color: #333333 !important;">
+        <span>방문객 회원가입</span></a>
     
 </form>
 
