@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<form method = "POST" action = "{% url 'residentSignUp' %}"  class="contact100-form validate-form" >
+<form method = "post" action = "doResidentSignUp/"  class="contact100-form validate-form" >
     {% csrf_token %}
     <span class="contact100-form-title">
         세대원 회원가입
     </span>
     <div class="wrap-input100 validate-input" data-validate="Name is required">
         <span class="label-input100">아이디</span>
-        <input class="input100" type="text" name="uid" placeholder="아이디를 입력해주세요">
+        <input class="input100" type="text" name="id" placeholder="아이디를 입력해주세요">
         <span class="focus-input100"></span>
     </div>
 
@@ -31,29 +31,25 @@
 
     <div>
         <span class="label-input100">동호수 (숫자만 입력해주세요)</span>
-        <form>
             <div class="form-row">
                 <div class="col">
-                <input type="text" class="form-control" name = "building" placeholder="동">
+                <input type="text" class="form-control" name = "dong" placeholder="동">
                 </div>
                 <div class="col">
                 <input type="text" class="form-control" name = "floor" placeholder="층">
                 </div>
                 <div class="col">
-                <input type="text" class="form-control" name = "room" placeholder="호">
+                <input type="text" class="form-control" name = "ho" placeholder="호">
                 </div>
             </div>
-        </form>
     </div>
 
-    <div class="container-contact100-form-btn">
+   <div class="container-contact100-form-btn">
         <div class="wrap-contact100-form-btn">
             <div class="contact100-form-bgbtn"></div>
             <button class="contact100-form-btn">
                 <span>
-                    <!-- Submit -->
-                    <input type = "submit" id = "residentSignUp" value = "회원가입">
-                    <!-- <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i> -->
+                    <input type = "submit"  value = "회원가입">
                 </span>
             </button>
         </div>
