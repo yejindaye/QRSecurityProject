@@ -2,6 +2,7 @@ from django.shortcuts import render
 from  qr_app.models import *
 import pdb
 from random import *
+
 from .models import QrAppResident
 from .models import QrAppVisitor
 from .models import QrAppApartment
@@ -30,6 +31,7 @@ from .models import QrAppApartment
 #     # Device properties
 #     request.user_agent.device  # returns Device(family='iPhone')
 #     request.user_agent.device.family  # returns 'iPhone'
+
 
 # 회원가입
 def residentSignUp(request):
@@ -98,4 +100,15 @@ def doResidentSignUp(request):
         new_apartment=QrAppApartment(uid=id,building_id=dong, room_id=ho,floor_id=floor)
         new_apartment.save()
 
+    return render(request, 'index.html')
+
+def doVisitorSignUp(request):
+    if request.method=='POST':
+        id=request.POST['id']
+        pw=request.POST['pw']
+        name=request.POST['name']
+        birth_year=request.POST['birth_year']
+        rand_salt=randrange(1000000)
+        new_visitor=QrAppVisitor(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
+        new_visitor.save()
     return render(request, 'index.html')
