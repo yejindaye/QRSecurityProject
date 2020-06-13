@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method = "POST" action = "{% url 'residentSignUp' %}"  class="contact100-form validate-form" >
+    {% csrf_token %}
+    <span class="contact100-form-title">
+        방문객 ""님의 허가된 방문요청 리스트
+    </span>
+    <table align="center" width="100%" height="70%">
+        <th>번호</th>
+        <th>동 호수</th>
+        <th>qr생성 버튼</th>
+        <tr>
+            <td>1.</td>
+            <td>101동 1303호</td>
+            <td>
+                <div class="container-contact100-form-btn">
+        <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <a href = "{% url 'visQrDisplay' %}" class="contact100-form-btn">
+                <span>
+                    qr생성
+                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+            </td>
+        </tr>
+       <tr>
+            <td>2.</td>
+            <td>303동 101호</td>
+            <td>
+                <div class="container-contact100-form-btn">
+        <div class="wrap-contact100-form-btn">
+            <div class="contact100-form-bgbtn"></div>
+            <a href = "{% url 'visQrDisplay' %}" class="contact100-form-btn">
+                <span>
+                    qr생성
+                    <i class="fa fa-long-arrow-right m-l-7" aria-hidden="true"></i>
+                </span>
+            </a>
+        </div>
+    </div>
+            </td>
+        </tr>
+    </table>
+
+
+
+</form>
+{% endblock %}

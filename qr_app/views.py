@@ -42,3 +42,23 @@ def qrDisplay(request):
     qrCode="Os info"
     return render(request, 'qr_app/qrDisplay.html',{'qrCode':qrCode})
 
+def resAfterLogin(request):
+    return render(request, 'qr_app/resAfterLogin.html')
+
+def resQrDisplay(request):
+    return render(request, 'qr_app/resQrDisplay.html')
+
+def resRequestedVisit(request):
+    return render(request, 'qr_app/resRequestedVisit.html')
+
+def visAfterLogin(request):
+    return render(request, 'qr_app/visAfterLogin.html')
+
+def visitForm(request):
+    return render(request, 'qr_app/visitForm.html')
+
+def visPermittedVisit(request):
+    return render(request, 'qr_app/visPermittedVisit.html')
+
+def visQrDisplay(request):
+    return render(request, 'qr_app/visQrDisplay.html')
