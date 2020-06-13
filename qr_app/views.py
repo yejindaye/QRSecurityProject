@@ -1,7 +1,10 @@
+import json
+from .models import QrAppVisitorVisitrequest
 from django.shortcuts import render,redirect, get_object_or_404
 # from __future__ import unicode_literals
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.views import View
+from django.http import HttpResponse, JsonResponse
 # import qrcode
 # import cv2
 
@@ -42,3 +45,35 @@ def qrDisplay(request):
     qrCode="Os info"
     return render(request, 'qr_app/qrDisplay.html',{'qrCode':qrCode})
 
+def resAfterLogin(request):
+    return render(request, 'qr_app/resAfterLogin.html')
+
+def resQrDisplay(request):
+    return render(request, 'qr_app/resQrDisplay.html')
+
+def resRequestedVisit(request):
+    return render(request, 'qr_app/resRequestedVisit.html')
+
+def visAfterLogin(request):
+    return render(request, 'qr_app/visAfterLogin.html')
+
+def visitForm(request):
+    return render(request, 'qr_app/visitForm.html')
+
+def visPermittedVisit(request):
+    return render(request, 'qr_app/visPermittedVisit.html')
+
+def visQrDisplay(request):
+    return render(request, 'qr_app/visQrDisplay.html')
+
+def doVisitForm(request):
+    if request.method=='POST':
+        id=request.POST['uid']
+        name=request.POST['uname']
+        building=request.POST['building']
+        room=request.POST['room']
+        purpose=request.POST['purpose']
+        new_visitForm=QrAppVisitorVisitrequest(uid=id,name=name, building_id=building,
+                                               room_id=room,visit_purpose=purpose)
+        new_visitForm.save()
+    return render(request, 'qr_app/visAfterLogin.html')
