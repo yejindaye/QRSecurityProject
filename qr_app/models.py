@@ -206,9 +206,9 @@ class DjangoSession(models.Model):
 
 
 class QrAppApartment(models.Model):
-    uid = models.TextField(blank=True, null=True)
+    uid = models.TextField()
     building = models.ForeignKey('QrAppBuilding', models.DO_NOTHING)
-    floor = models.ForeignKey('QrAppFloor', models.DO_NOTHING)
+    floor = models.ForeignKey('QrAppFloor', models.DO_NOTHING, blank=True, null=True)
     room = models.ForeignKey('QrAppRoom', models.DO_NOTHING)
 
     class Meta:
@@ -258,10 +258,11 @@ class QrAppResident(models.Model):
     idx = models.BigAutoField(primary_key=True)
     uid = models.TextField()
     pw = models.TextField()
-    name = models.CharField(max_length=10, blank=True, null=True)
+    name = models.CharField(max_length=10)
     birth_year = models.IntegerField()
-    apartment = models.ForeignKey(QrAppApartment, models.DO_NOTHING)
-    salt = models.CharField(max_length=45)
+    apartment = models.ForeignKey(QrAppApartment, models.DO_NOTHING, blank=True, null=True)
+    salt = models.CharField(max_length=100, blank=True, null=True)
+    hash = models.CharField(max_length=100, blank=True, null=True)
 
     class Meta:
         managed = False
@@ -291,12 +292,11 @@ class QrAppVisitor(models.Model):
     idx = models.BigAutoField(primary_key=True)
     uid = models.TextField()
     pw = models.TextField()
-    name = models.CharField(max_length=10, blank=True, null=True)
-    date = models.DateTimeField()
-    time = models.BigIntegerField()
-    visited = models.IntegerField()
-    apartment = models.ForeignKey(QrAppApartment, models.DO_NOTHING)
-    salt = models.CharField(max_length=45)
+    name = models.CharField(max_length=10)
+    birth_year = models.IntegerField()
+    apartment = models.ForeignKey(QrAppApartment, models.DO_NOTHING, blank=True, null=True)
+    salt = models.CharField(max_length=45, blank=True, null=True)
+    hash = models.CharField(max_length=45, blank=True, null=True)
 
     class Meta:
         managed = False

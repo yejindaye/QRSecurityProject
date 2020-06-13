@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from  qr_app.models import *
 import pdb
+from random import *
+from .models import QrAppVisitor
 
 # 회원가입
 def residentSignUp(request):
@@ -39,5 +41,15 @@ def residentLogin(request):
     return render(request, 'user_app/residentLogin.html')
 
 def visitorLogin(request):
-    return render(request, 'user_app/visitortLogin.html')
+    return render(request, 'user_app/visitorLogin.html')
 
+def doVisitorSignUp(request):
+    if request.method=='POST':
+        id=request.POST['id']
+        pw=request.POST['pw']
+        name=request.POST['name']
+        birth_year=request.POST['birth_year']
+        rand_salt=randrange(1000000)
+        new_visitor=QrAppVisitor(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
+        new_visitor.save()
+    return render(request, 'index.html')
