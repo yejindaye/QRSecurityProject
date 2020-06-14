@@ -136,3 +136,7 @@ STATICFILES_DIRS = [
 # Name of cache backend to cache user agents. If it not specified default
 # cache alias will be used. Set to `None` to disable caching.
 USER_AGENTS_CACHE = 'default'
+
+# AUTH_USER_MODEL = 'app명.model class명'
+# AUTH_USER_MODEL = 'qr_app.QrAppResident'
+# AUTH_USER_MODEL = 'qr_app.QrAppResident'

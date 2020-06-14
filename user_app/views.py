@@ -47,16 +47,25 @@ def residentLogin(request):
     if request.method == 'POST':
         uid = request.POST['id']
         pw = request.POST['pw']
-        user = auth.authenticate(request, uid = uid, pw = pw)
-        if user is not None:
-            auth.login(request, user)
-            return redirect('visAfterLogin')
+        if QrAppResident.objects.filter(uid = uid, pw = pw):
+            return redirect('resAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/residentLogin.html')
     return render(request, 'user_app/residentLogin.html')
 
+
+
+
 def visitorLogin(request):
+    if request.method == 'POST':
+        uid = request.POST['id']
+        pw = request.POST['pw']
+        if QrAppVisitor.objects.filter(uid = uid, pw = pw):
+            return redirect('visAfterLogin')
+        messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
+        return render(request, 'user_app/visitorLogin.html')
     return render(request, 'user_app/visitorLogin.html')
+    
 
 #방문자 회원가입 디비저장
 def visitorSignUp(request):
