@@ -1,11 +1,14 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from  qr_app.models import *
 import pdb
 from random import *
-
 from .models import QrAppResident
 from .models import QrAppVisitor
 from .models import QrAppApartment
+from django.contrib.auth.models import User
+from django.contrib import auth
+from django.contrib import messages
+
 
 # def my_view(request):
 
@@ -32,32 +35,6 @@ from .models import QrAppApartment
 #     request.user_agent.device  # returns Device(family='iPhone')
 #     request.user_agent.device.family  # returns 'iPhone'
 
-
-# 회원가입
-def residentSignUp(request):
-    if request.method == "POST":
-        pdb.set_trace()
-        uid = request.POST.get('uid')
-        pw = request.POST.get('pw')
-        name = request.POST.get('name')
-        birth_year = request.POST.get('birth_year')
-        building_num = request.POST.get('building')
-        floor_num = request.POST.get('floor')
-        room_num = request.POST.get('room')
-        building = Building.objects.create(number = building_num)
-        floor = Building.objects.create(number = floor_num)
-        room = Building.objects.create(number = room_num)
-        apt = Apartment.objects.create(building = building, floor = floor, room = room)
-        #apt완성
-        resident = Resident.objects.create(uid = uid, pw = pw, name = name, birth_year = birth_year, room = apt)
-        return redirect('qrDisplay')
-    return render(request, 'user_app/residentSignUp.html')
-
-
-def visitorSignUp(request):
-    return render(request, 'user_app/visitorSignUp.html');    
-
-
 # 로그인
 def residentLogin(request):
     # request.user_agent.is_mobile # returns True
@@ -67,13 +44,22 @@ def residentLogin(request):
     # request.user_agent.is_bot # returns False
     # os = request.user_agent.os
     # print(os)
+    if request.method == 'POST':
+        uid = request.POST['id']
+        pw = request.POST['pw']
+        user = auth.authenticate(request, uid = uid, pw = pw)
+        if user is not None:
+            auth.login(request, user)
+            return redirect('visAfterLogin')
+        messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
+        return render(request, 'user_app/residentLogin.html')
     return render(request, 'user_app/residentLogin.html')
 
 def visitorLogin(request):
     return render(request, 'user_app/visitorLogin.html')
 
 #방문자 회원가입 디비저장
-def doVisitorSignUp(request):
+def visitorSignUp(request):
     if request.method=='POST':
         id=request.POST['id']
         pw=request.POST['pw']
@@ -82,10 +68,11 @@ def doVisitorSignUp(request):
         rand_salt=randrange(1000000)
         new_visitor=QrAppVisitor(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
         new_visitor.save()
-    return render(request, 'index.html')
+        return redirect('visAfterLogin')
+    return render(request, 'user_app/visitorSignUp.html');    
 
 #세대원 회원가입 디비저장
-def doResidentSignUp(request):
+def residentSignUp(request):
     if request.method=='POST':
         id=request.POST['id']
         pw=request.POST['pw']
@@ -95,20 +82,12 @@ def doResidentSignUp(request):
         ho=request.POST['ho']
         floor=request.POST['floor']
         rand_salt=randrange(1000000)
-        new_visitor=QrAppResident(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
-        new_visitor.save()
+        apt =  QrAppApartment.objects.create(uid)
+        post = Post.objects.create(user = user, title = title, content = content, image = image, category = category, amount = amount, cooking_time = cooking_time, cooking_level = cooking_level)
+        # 아파트 완성
+        new_resident = QrAppResident.objects.create(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
+        new_resident.save()
         new_apartment=QrAppApartment(uid=id,building_id=dong, room_id=ho,floor_id=floor)
         new_apartment.save()
-
-    return render(request, 'index.html')
-
-def doVisitorSignUp(request):
-    if request.method=='POST':
-        id=request.POST['id']
-        pw=request.POST['pw']
-        name=request.POST['name']
-        birth_year=request.POST['birth_year']
-        rand_salt=randrange(1000000)
-        new_visitor=QrAppVisitor(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
-        new_visitor.save()
-    return render(request, 'index.html')
+        return redirect('resAfterLogin')
+    return render(request, 'user_app/residentSignUp.html');             

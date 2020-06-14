@@ -1,25 +1,7 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
-# Create your models here.
-
-class Device(models.Model):
-    MOBILE = 'mb'
-    TABLET = 'tl'
-    PC = 'pc'
-    TYPE_CHOICES = [
-        (MOBILE, '모바일'),
-        (TABLET, '테블릿'),
-        (PC, 'pc')
-    ]
-    objects = models.Manager()
-    idx = models.BigAutoField(primary_key=True)
-    device_type = models.CharField(
-        max_length=10,
-        choices=TYPE_CHOICES,
-        default=MOBILE
-    )
-    os = models.CharField(max_length=10, blank=True)
-    version = models.CharField(max_length=10, blank=True)
 
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
@@ -133,9 +115,9 @@ class DjangoSession(models.Model):
 
 class QrAppApartment(models.Model):
     uid = models.TextField()
-    building = models.ForeignKey('QrAppBuilding', models.DO_NOTHING)
-    floor = models.ForeignKey('QrAppFloor', models.DO_NOTHING, blank=True, null=True)
-    room = models.ForeignKey('QrAppRoom', models.DO_NOTHING)
+    building_id = models.IntegerField()
+    floor_id = models.IntegerField(blank=True, null=True)
+    room_id = models.IntegerField()
 
     class Meta:
         managed = False
