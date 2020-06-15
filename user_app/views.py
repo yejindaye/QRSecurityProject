@@ -48,6 +48,7 @@ def residentLogin(request):
         uid = request.POST['id']
         pw = request.POST['pw']
         if QrAppResident.objects.filter(uid = uid, pw = pw):
+            request.session['r_id']=uid
             return redirect('resAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/residentLogin.html')
@@ -61,6 +62,7 @@ def visitorLogin(request):
         uid = request.POST['id']
         pw = request.POST['pw']
         if QrAppVisitor.objects.filter(uid = uid, pw = pw):
+            request.session['v_id']=uid
             return redirect('visAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/visitorLogin.html')

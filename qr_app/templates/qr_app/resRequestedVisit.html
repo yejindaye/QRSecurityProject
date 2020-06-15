@@ -3,7 +3,7 @@
 <form method = "POST" action = "{% url 'residentSignUp' %}"  class="contact100-form validate-form" >
     {% csrf_token %}
     <span class="contact100-form-title">
-        세대원 ""님에게 온 <br>방문요청 리스트
+        세대원 "{{request.session.r_id}}"님에게 온 <br>방문요청 리스트
     </span>
     <table align="center" width="100%" height="70%">
         <th>번호</th>
