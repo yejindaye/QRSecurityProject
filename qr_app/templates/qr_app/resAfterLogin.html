@@ -2,7 +2,7 @@
 {% block content %}
 <form class="contact100-form validate-form">
     <span class="contact100-form-title">
-        세대원 ""님<br>안녕하세요
+        세대원 "{{request.session.r_id}}"님<br>안녕하세요
     </span>
     <!-- 세대원 로그인 -->
     <div class="container-contact100-form-btn">
