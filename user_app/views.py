@@ -91,12 +91,10 @@ def residentSignUp(request):
         ho=request.POST['ho']
         floor=request.POST['floor']
         rand_salt=randrange(1000000)
-        apt =  QrAppApartment.objects.create(uid)
-        post = Post.objects.create(user = user, title = title, content = content, image = image, category = category, amount = amount, cooking_time = cooking_time, cooking_level = cooking_level)
-        # 아파트 완성
         new_resident = QrAppResident.objects.create(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
         new_resident.save()
         new_apartment=QrAppApartment(uid=id,building_id=dong, room_id=ho,floor_id=floor)
         new_apartment.save()
         return redirect('resAfterLogin')
     return render(request, 'user_app/residentSignUp.html');             
+ 
