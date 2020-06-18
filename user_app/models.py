@@ -169,12 +169,6 @@ class QrAppResident(models.Model):
     apartment = models.ForeignKey(QrAppApartment, models.DO_NOTHING, blank=True, null=True)
     salt = models.CharField(max_length=100, blank=True, null=True)
     hash = models.CharField(max_length=100, blank=True, null=True)
-    device = models.ForeignKey(
-		QrAppDevice, 
-        on_delete = models.CASCADE,
-		related_name='device',
-		blank=True
-	)
 
     class Meta:
         managed = False
