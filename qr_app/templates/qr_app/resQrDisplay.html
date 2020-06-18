@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 {% extends 'base.html' %}
 {% load static %}
+{% load qr_code %}
 {% block content %}
 <html lang="en">
 <head>
@@ -13,7 +14,7 @@
 
 </form>
     <!--<img src="{% static 'qr_app/images/helloworld_qrcode.png' %}"></p>-->
-resident qrcode
+<img src="http://api.qrserver.com/v1/create-qr-code/?size={{ size}}x{{ size }}&data={{qrCode}}">
 </body>
 </html>
 

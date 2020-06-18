@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'user_app',
     'qr_app',
     'django_user_agents',
-    #'qr_code',
+    'qr_code',
 ]
 
 MIDDLEWARE = [

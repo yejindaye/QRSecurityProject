@@ -2,6 +2,8 @@ import json
 from .models import QrAppVisitorVisitrequest
 from .models import QrAppVisitRequestList
 from .models import QrAppApartment
+from .models import QrAppDevice
+from .models import QrAppResident
 from django.shortcuts import render,redirect, get_object_or_404
 # from __future__ import unicode_literals
 from django.shortcuts import render
@@ -51,7 +53,24 @@ def resAfterLogin(request):
     return render(request, 'qr_app/resAfterLogin.html')
 
 def resQrDisplay(request):
-    return render(request, 'qr_app/resQrDisplay.html')
+    user_id = (QrAppResident.objects.get(uid=request.session['r_id'])).uid
+    #사용자로부터 받아온 os정보 같은지 확인(일단 같은지만 확인)
+    #사용자로부터 디바이스 정보 받아옴
+    os_family = request.user_agent.os.family
+    os_version = request.user_agent.os.version_string
+    if request.user_agent.is_mobile:
+        device_type = 'mobile'
+    elif request.user_agent.is_tablet:  # returns False
+        device_type = 'tablet'  # returns True -> 이거3개 이넘
+    elif request.user_agent.is_pc:  # returns False
+        device_type = 'pc'
+    #디비에 존재하는 정보와 비교
+    if QrAppDevice(uid=user_id, device_type=device_type,os=os_family, version=os_version):
+        #사용자 residentDB로 부터 hash값 받아오고 거기에 userid붙여서 qrCode에 저장
+        hash = QrAppResident.objects.get(uid=request.session['r_id']).hash
+        qrCode=user_id+hash
+
+    return render(request, 'qr_app/resQrDisplay.html',{'qrCode':qrCode})
 
 def resRequestedVisit(request):
     return render(request, 'qr_app/resRequestedVisit.html')
