@@ -5,11 +5,14 @@ from random import *
 from .models import QrAppResident
 from .models import QrAppVisitor
 from .models import QrAppApartment
-from .models import QrAppDevice
+from qr_app.models import Device
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
-
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import csrf_exempt
+from .hash import make_hash
+import hashlib
 
 # def my_view(request):
 
@@ -37,6 +40,7 @@ from django.contrib import messages
 #     request.user_agent.device.family  # returns 'iPhone'
 
 # 로그인
+@csrf_exempt
 def residentLogin(request):
     # request.user_agent.is_mobile # returns True
     # request.user_agent.is_tablet # returns False
@@ -48,8 +52,36 @@ def residentLogin(request):
     if request.method == 'POST':
         uid = request.POST['id']
         pw = request.POST['pw']
-        if QrAppResident.objects.filter(uid = uid, pw = pw):
+        resident = QrAppResident.objects.filter(uid = uid, pw = pw)
+        if resident:
             request.session['r_id']=uid
+
+            os_family=request.user_agent.os.family
+            os_version=request.user_agent.os.version_string
+            devices = Device.objects.filter(resident_id = resident[0].idx)
+
+            if request.user_agent.is_mobile:
+                device_type='mobile'
+            elif request.user_agent.is_tablet: # returns False
+                device_type='tablet' # returns True -> 이거3개 이넘
+            elif request.user_agent.is_pc: # returns False
+                device_type='pc'
+            
+            device_check = False
+            current_device = None
+
+            if len(devices) == 3:
+                messages.info(request, '등록 가능한 디바이스 수를 초과하였습니다.')
+            else:
+                for device in devices:
+                    if device.version == os_version:
+                        device_check = True
+                        current_device = device
+                if device_check == False:
+                    current_device=Device(resident_id=resident.idx,device_type=device_type,os=os_family, version=os_version)
+                    current_device.save()
+            hash = make_hash(current_device, resident[0].salt, 10)
+            resident.update(hash=hash)
             return redirect('resAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/residentLogin.html')
@@ -57,7 +89,7 @@ def residentLogin(request):
 
 
 
-
+@csrf_exempt
 def visitorLogin(request):
     if request.method == 'POST':
         uid = request.POST['id']
@@ -71,6 +103,7 @@ def visitorLogin(request):
     
 
 #방문자 회원가입 디비저장
+@csrf_exempt
 def visitorSignUp(request):
     if request.method=='POST':
         id=request.POST['id']
@@ -84,6 +117,7 @@ def visitorSignUp(request):
     return render(request, 'user_app/visitorSignUp.html');    
 
 #세대원 회원가입 디비저장
+@csrf_exempt
 def residentSignUp(request):
     if request.method=='POST':
         id=request.POST['id']
@@ -99,17 +133,6 @@ def residentSignUp(request):
         new_apartment=QrAppApartment(uid=id,building_id=dong, room_id=ho,floor_id=floor)
         new_apartment.save()
         #os_info=request.user_agent.os
-        os_family=request.user_agent.os.family
-        os_version=request.user_agent.os.version_string
-        if request.user_agent.is_mobile:
-            device_type='mobile'
-        elif request.user_agent.is_tablet: # returns False
-            device_type='tablet' # returns True -> 이거3개 이넘
-        elif request.user_agent.is_pc: # returns False
-            device_type='pc'
-
-        new_device=QrAppDevice(uid=id,device_type=device_type,os=os_family, version=os_version)
-        new_device.save()
         return redirect('residentLogin')
     return render(request, 'user_app/residentSignUp.html');             
  
