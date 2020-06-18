@@ -1,5 +1,7 @@
 import json
 from .models import QrAppVisitorVisitrequest
+from .models import QrAppVisitRequestList
+from .models import QrAppApartment
 from django.shortcuts import render,redirect, get_object_or_404
 # from __future__ import unicode_literals
 from django.shortcuts import render
@@ -68,12 +70,19 @@ def visQrDisplay(request):
 
 def doVisitForm(request):
     if request.method=='POST':
-        id=request.POST['uid']
+        #id=request.POST['uid']
         name=request.POST['uname']
         building=request.POST['building']
         room=request.POST['room']
         purpose=request.POST['purpose']
+        id=request.session['v_id']
         new_visitForm=QrAppVisitorVisitrequest(uid=id,name=name, building_id=building,
                                                room_id=room,visit_purpose=purpose)
         new_visitForm.save()
+        #디비에서 해당 동 거주자 찾음
+        if QrAppApartment.objects.filter(building_id=building,room_id=room):
+            resident_uid=QrAppApartment.objects.get(building_id=building,room_id=room)
+            resident_uid=resident_uid.uid
+            new_list=QrAppVisitRequestList(resident_uid=resident_uid,visitor_uid=id)
+            new_list.save()
     return render(request, 'qr_app/visAfterLogin.html')

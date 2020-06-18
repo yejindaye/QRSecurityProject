@@ -135,9 +135,9 @@ class QrAppBuilding(models.Model):
 class QrAppDevice(models.Model):
     idx = models.BigAutoField(primary_key=True)
     uid = models.TextField()
-    device_type = models.CharField(max_length=10)
-    os = models.CharField(max_length=10)
-    version = models.CharField(max_length=10)
+    device_type = models.CharField(max_length=10, blank=True, null=True)
+    os = models.CharField(max_length=100)
+    version = models.CharField(max_length=10, blank=True, null=True)
 
     class Meta:
         managed = False

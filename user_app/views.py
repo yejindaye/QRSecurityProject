@@ -5,6 +5,7 @@ from random import *
 from .models import QrAppResident
 from .models import QrAppVisitor
 from .models import QrAppApartment
+from .models import QrAppDevice
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.contrib import messages
@@ -79,7 +80,7 @@ def visitorSignUp(request):
         rand_salt=randrange(1000000)
         new_visitor=QrAppVisitor(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
         new_visitor.save()
-        return redirect('visAfterLogin')
+        return redirect('visitorLogin')
     return render(request, 'user_app/visitorSignUp.html');    
 
 #세대원 회원가입 디비저장
@@ -97,6 +98,18 @@ def residentSignUp(request):
         new_resident.save()
         new_apartment=QrAppApartment(uid=id,building_id=dong, room_id=ho,floor_id=floor)
         new_apartment.save()
-        return redirect('resAfterLogin')
+        #os_info=request.user_agent.os
+        os_family=request.user_agent.os.family
+        os_version=request.user_agent.os.version_string
+        if request.user_agent.is_mobile:
+            device_type='mobile'
+        elif request.user_agent.is_tablet: # returns False
+            device_type='tablet' # returns True -> 이거3개 이넘
+        elif request.user_agent.is_pc: # returns False
+            device_type='pc'
+
+        new_device=QrAppDevice(uid=id,device_type=device_type,os=os_family, version=os_version)
+        new_device.save()
+        return redirect('residentLogin')
     return render(request, 'user_app/residentSignUp.html');             
  
