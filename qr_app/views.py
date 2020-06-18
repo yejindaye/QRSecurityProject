@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, JsonResponse
 from random import *
+import pdb
 # import qrcode
 # import cv2
 
@@ -85,7 +86,7 @@ def resQrDisplay(request):
 def resRequestedVisit(request):
     user_id = (QrAppResident.objects.get(uid=request.session['r_id'])).uid
     apartment = QrAppApartment.objects.get(uid = user_id)
-    requestList = QrAppVisitorVisitrequest.objects.filter(building_id = apartment.building.number, room_id = apartment.room.number)
+    requestList = QrAppVisitorVisitrequest.objects.filter(building_id = apartment.building_id, floor = apartment.floor_id, room_id = apartment.room_id)
     return render(request, 'qr_app/resRequestedVisit.html', {'requestList': requestList})
 
 def visAfterLogin(request):
@@ -109,7 +110,7 @@ def doVisitForm(request):
         room=request.POST['room']
         purpose=request.POST['purpose']
         id=request.session['v_id']
-        new_visitForm=QrAppVisitorVisitrequest(uid=id,name=name, building_id=building,
+        new_visitForm=QrAppVisitorVisitrequest(uid=id,name=name, building_id=building, floor = floor,
                                                room_id=room,visit_purpose=purpose)
         new_visitForm.save()
         #디비에서 해당 동 거주자 찾음
@@ -119,3 +120,10 @@ def doVisitForm(request):
             new_list=QrAppVisitRequestList(resident_uid=resident_uid,visitor_uid=id)
             new_list.save()
     return render(request, 'qr_app/visAfterLogin.html')
+
+
+def permitTheRequest(request, id):
+    theRequest = QrAppVisitorVisitrequest.objects.get(idx = id)
+    theRequest.permit = 1
+    theRequest.save()
+    return render(request, 'qr_app/resAfterLogin.html')

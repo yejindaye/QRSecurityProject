@@ -5,6 +5,7 @@ urlpatterns = [
     path('resAfterLogin/',views.resAfterLogin, name="resAfterLogin"),
     path('resAfterLogin/resQrDisplay',views.resQrDisplay, name="resQrDisplay"),
     path('resAfterLogin/resRequestedVisit',views.resRequestedVisit,name="resRequestedVisit"),
+    path('permitTheRequest/<int:id>', views.permitTheRequest, name="permitTheRequest"),
     path('visAfterLogin/',views.visAfterLogin,name="visAfterLogin"),
     path('visAfterLogin/visitForm',views.visitForm, name="visitForm"),
     path('visAfterLogin/visPermittedVisit',views.visPermittedVisit, name="visPermittedVisit"),

@@ -1,98 +1,4 @@
 from django.db import models
-from django.utils import timezone
-# Create your models here.
-
-class Device(models.Model):
-    MOBILE = 'mb'
-    TABLET = 'tl'
-    PC = 'pc'
-    TYPE_CHOICES = [
-        (MOBILE, '모바일'),
-        (TABLET, '테블릿'),
-        (PC, 'pc')
-    ]
-    objects = models.Manager()
-    idx = models.BigAutoField(primary_key=True)
-    device_type = models.CharField(
-        max_length=10, 
-        choices=TYPE_CHOICES,
-        default=MOBILE
-    )
-    os = models.CharField(max_length=10, blank=True)
-    version = models.CharField(max_length=10, blank=True)
-
-
-class Building(models.Model):
-    objects = models.Manager()
-    number = models.IntegerField()
-
-    def __str__(self):
-        return str(self.number) + "동"
-
-class Floor(models.Model):
-    objects = models.Manager()
-    number = models.IntegerField()
-
-    def __str__(self):
-        return str(self.number) + "층"
-
-class Room(models.Model):
-    objects = models.Manager()
-    number = models.IntegerField()
-
-    def __str__(self):
-        return str(self.number) + "호"
-
-class Apartment(models.Model):
-    objects = models.Manager()
-    building = models.ForeignKey(Building, on_delete = models.CASCADE, blank=True)
-    floor = models.ForeignKey(Floor, on_delete = models.CASCADE, blank=True)
-    room = models.ForeignKey(Room, on_delete = models.CASCADE, blank=True)
-
-    def __str__(self):
-        return str(self.building.number)+"동 " + str(self.floor.number) + "0" + str(self.room.number)+"호"
-
-class Resident(models.Model):
-    objects = models.Manager()
-    idx = models.BigAutoField(primary_key=True)
-    uid = models.TextField(blank=False, null=False)
-    pw = models.TextField(blank=False, null=False)
-    name = models.CharField(max_length=10, blank=True, null=True)
-    birth_year = models.IntegerField()
-    room = models.ForeignKey(Apartment, on_delete = models.CASCADE, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class Visitor(models.Model):
-    objects = models.Manager()
-    idx = models.BigAutoField(primary_key=True)
-    name = models.CharField(max_length=50, blank=True)
-    date = models.DateTimeField(default=timezone.now)
-    time = models.DurationField()
-    visited = models.BooleanField(default=False)
-    room = models.ForeignKey(Apartment, on_delete = models.CASCADE, blank=True)
-
-    def __str__(self):
-        return self.name
-
-class EntranceLog(models.Model):
-    objects = models.Manager()
-    idx = models.BigAutoField(primary_key=True)
-    date = models.DateTimeField(default=timezone.now)
-    visitor_idx = models.ForeignKey(Visitor, models.DO_NOTHING, db_column='visitor_idx')
-
-
-
-
-# This is an auto-generated Django model module.
-# You'll have to do the following manually to clean this up:
-#   * Rearrange models' order
-#   * Make sure each model has one field with primary_key=True
-#   * Make sure each ForeignKey and OneToOneField has `on_delete` set to the desired behavior
-#   * Remove `managed = False` lines if you wish to allow Django to create, modify, and delete the table
-# Feel free to rename the models, but don't rename db_table values or field names.
-from django.db import models
 
 
 class AuthGroup(models.Model):
@@ -207,9 +113,9 @@ class DjangoSession(models.Model):
 
 class QrAppApartment(models.Model):
     uid = models.TextField()
-    building = models.ForeignKey('QrAppBuilding', models.DO_NOTHING)
-    floor = models.ForeignKey('QrAppFloor', models.DO_NOTHING, blank=True, null=True)
-    room = models.ForeignKey('QrAppRoom', models.DO_NOTHING)
+    building_id = models.IntegerField()
+    floor_id = models.IntegerField(blank=True, null=True)
+    room_id = models.IntegerField()
 
     class Meta:
         managed = False
@@ -308,8 +214,10 @@ class QrAppVisitorVisitrequest(models.Model):
     uid = models.TextField()
     name = models.TextField(blank=True, null=True)
     building_id = models.IntegerField(blank=True, null=True)
+    floor = models.IntegerField(blank=True, null=True)
     room_id = models.IntegerField(blank=True, null=True)
     visit_purpose = models.CharField(max_length=100, blank=True, null=True)
+    permit = models.IntegerField(blank=True, null=True)
 
     class Meta:
         managed = False
