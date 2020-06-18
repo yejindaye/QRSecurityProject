@@ -81,8 +81,12 @@ def resQrDisplay(request):
 
     return render(request, 'qr_app/resQrDisplay.html',{'qrCode':qrCode})
 
+# 방문요청 허가 -> 방문요청 리스트 띄우기
 def resRequestedVisit(request):
-    return render(request, 'qr_app/resRequestedVisit.html')
+    user_id = (QrAppResident.objects.get(uid=request.session['r_id'])).uid
+    apartment = QrAppApartment.objects.get(uid = user_id)
+    requestList = QrAppVisitorVisitrequest.objects.filter(building_id = apartment.building.number, room_id = apartment.room.number)
+    return render(request, 'qr_app/resRequestedVisit.html', {'requestList': requestList})
 
 def visAfterLogin(request):
     return render(request, 'qr_app/visAfterLogin.html')
@@ -101,6 +105,7 @@ def doVisitForm(request):
         #id=request.POST['uid']
         name=request.POST['uname']
         building=request.POST['building']
+        floor=request.POST['floor']
         room=request.POST['room']
         purpose=request.POST['purpose']
         id=request.session['v_id']
