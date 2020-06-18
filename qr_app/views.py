@@ -9,6 +9,7 @@ from django.shortcuts import render,redirect, get_object_or_404
 from django.shortcuts import render
 from django.views import View
 from django.http import HttpResponse, JsonResponse
+from random import *
 # import qrcode
 # import cv2
 
@@ -54,6 +55,14 @@ def resAfterLogin(request):
 
 def resQrDisplay(request):
     user_id = (QrAppResident.objects.get(uid=request.session['r_id'])).uid
+    rand_salt = randrange(1000000)
+    #여기서 새로운 salt가지고 해쉬값 저장
+    hash='aaa'
+    #DB에 새로운 salt값 hash값 저장 #DB수정부분
+    ##resident=QrAppResident(uid=user_id)
+    #resident.salt=rand_salt
+    #resident.hash=hash
+
     #사용자로부터 받아온 os정보 같은지 확인(일단 같은지만 확인)
     #사용자로부터 디바이스 정보 받아옴
     os_family = request.user_agent.os.family
