@@ -2,26 +2,6 @@ from django.db import models
 from django.utils import timezone
 # Create your models here.
 
-class Device(models.Model):
-    MOBILE = 'mb'
-    TABLET = 'tl'
-    PC = 'pc'
-    TYPE_CHOICES = [
-        (MOBILE, '모바일'),
-        (TABLET, '테블릿'),
-        (PC, 'pc')
-    ]
-    objects = models.Manager()
-    idx = models.BigAutoField(primary_key=True)
-    device_type = models.CharField(
-        max_length=10, 
-        choices=TYPE_CHOICES,
-        default=MOBILE
-    )
-    os = models.CharField(max_length=10, blank=True)
-    version = models.CharField(max_length=10, blank=True)
-
-
 class Building(models.Model):
     objects = models.Manager()
     number = models.IntegerField()
@@ -82,6 +62,31 @@ class EntranceLog(models.Model):
     date = models.DateTimeField(default=timezone.now)
     visitor_idx = models.ForeignKey(Visitor, models.DO_NOTHING, db_column='visitor_idx')
 
+class Device(models.Model):
+    MOBILE = 'mb'
+    TABLET = 'tl'
+    PC = 'pc'
+    TYPE_CHOICES = [
+        (MOBILE, '모바일'),
+        (TABLET, '테블릿'),
+        (PC, 'pc')
+    ]
+    objects = models.Manager()
+    idx = models.BigAutoField(primary_key=True)
+    device_type = models.CharField(
+        max_length=10, 
+        choices=TYPE_CHOICES,
+        default=MOBILE
+    )
+    os = models.CharField(max_length=10, blank=True)
+    version = models.CharField(max_length=10, blank=True)
+    resident = models.ForeignKey(
+		Resident, 
+        on_delete = models.DO_NOTHING,
+		related_name='resident',
+		blank=True,
+        null=True
+	)
 
 
 

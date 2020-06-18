@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
-
 class AuthGroup(models.Model):
     name = models.CharField(unique=True, max_length=150)
 
@@ -134,7 +133,6 @@ class QrAppBuilding(models.Model):
 
 class QrAppDevice(models.Model):
     idx = models.BigAutoField(primary_key=True)
-    uid = models.TextField()
     device_type = models.CharField(max_length=10, blank=True, null=True)
     os = models.CharField(max_length=100)
     version = models.CharField(max_length=10, blank=True, null=True)
@@ -171,6 +169,12 @@ class QrAppResident(models.Model):
     apartment = models.ForeignKey(QrAppApartment, models.DO_NOTHING, blank=True, null=True)
     salt = models.CharField(max_length=100, blank=True, null=True)
     hash = models.CharField(max_length=100, blank=True, null=True)
+    device = models.ForeignKey(
+		QrAppDevice, 
+        on_delete = models.CASCADE,
+		related_name='device',
+		blank=True
+	)
 
     class Meta:
         managed = False
