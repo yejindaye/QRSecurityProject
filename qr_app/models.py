@@ -302,9 +302,10 @@ class QrAppVisitorVisitrequest(models.Model):
     uid = models.TextField()
     name = models.TextField(blank=True, null=True)
     building_id = models.IntegerField(blank=True, null=True)
+    floor = models.IntegerField(blank=True, null=True)
     room_id = models.IntegerField(blank=True, null=True)
     visit_purpose = models.CharField(max_length=100, blank=True, null=True)
-
+    permit = models.IntegerField(blank=True, null=True)
     class Meta:
         managed = False
         db_table = 'qr_app_visitor_visitRequest'
