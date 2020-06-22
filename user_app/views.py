@@ -11,7 +11,7 @@ from django.contrib import auth
 from django.contrib import messages
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.views.decorators.csrf import csrf_exempt
-from .hash import make_hash
+from .hash import encrypt, decrypt, generate_salt
 import hashlib
 
 # def my_view(request):
@@ -77,11 +77,13 @@ def residentLogin(request):
                     if device.version == os_version:
                         device_check = True
                         current_device = device
-                if device_check == False:
-                    current_device=Device(resident_id=resident.idx,device_type=device_type,os=os_family, version=os_version)
+                if device_check == False: #
+                    current_device=Device(resident_id=resident[0].idx,device_type=device_type,os=os_family, version=os_version)
                     current_device.save()
-            hash = make_hash(current_device, resident[0].salt, 10)
-            resident.update(hash=hash)
+            salt = generate_salt()
+            hash = encrypt(current_device, pw, salt)
+            resident.update(hash=hash, salt=salt)
+            print(decrypt(hash, pw))
             return redirect('resAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/residentLogin.html')
@@ -110,7 +112,7 @@ def visitorSignUp(request):
         pw=request.POST['pw']
         name=request.POST['name']
         birth_year=request.POST['birth_year']
-        rand_salt=randrange(1000000)
+        rand_salt=generate_salt()
         new_visitor=QrAppVisitor(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
         new_visitor.save()
         return redirect('visitorLogin')
@@ -127,7 +129,7 @@ def residentSignUp(request):
         dong=request.POST['dong']
         ho=request.POST['ho']
         floor=request.POST['floor']
-        rand_salt=randrange(1000000)
+        rand_salt=generate_salt()
         new_resident = QrAppResident.objects.create(uid=id,pw=pw, name=name, birth_year=birth_year,salt=rand_salt)
         new_resident.save()
         new_apartment=QrAppApartment(uid=id,building_id=dong, room_id=ho,floor_id=floor)
