@@ -44,15 +44,12 @@ def unpad_text(padded_text):
 
     return text
 
-def encrypt(device, password, salt):
+def encrypt(plaintext, password, salt):
     # salt = Crypto.Random.get_random_bytes(SALT_SIZE)
 
     key = generate_key(password, salt, NUMBER_OF_ITERATIONS)
 
     cipher = AES.new(key, AES.MODE_ECB)
-
-    if device:
-        plaintext = device.device_type + device.os + device.version
 
     padded_plaintext = pad_text(plaintext, AES_MULTIPLE)
 
