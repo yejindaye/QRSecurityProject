@@ -1,7 +1,11 @@
+import crypto
+import sys
+sys.modules['Crypto'] = crypto
 import Crypto.Random
 from Crypto.Cipher import AES
 import hashlib
 import binascii
+
 
 # salt size in bytes
 SALT_SIZE = 16

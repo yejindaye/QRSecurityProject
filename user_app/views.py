@@ -14,6 +14,9 @@ from django.views.decorators.csrf import csrf_exempt
 from .hash import make_hash
 import hashlib
 
+
+
+
 # def my_view(request):
 
 #     # Let's assume that the visitor uses an iPhone...
@@ -78,7 +81,7 @@ def residentLogin(request):
                         device_check = True
                         current_device = device
                 if device_check == False:
-                    current_device=Device(resident_id=resident.idx,device_type=device_type,os=os_family, version=os_version)
+                    current_device=Device(resident_id = resident.idx,device_type=device_type,os=os_family, version=os_version)
                     current_device.save()
             hash = make_hash(current_device, resident[0].salt, 10)
             resident.update(hash=hash)
