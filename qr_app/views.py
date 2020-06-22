@@ -95,8 +95,12 @@ def visAfterLogin(request):
 def visitForm(request):
     return render(request, 'qr_app/visitForm.html')
 
+# 방문자 -> 허가된 방문요청 리스트 띄우기
 def visPermittedVisit(request):
-    return render(request, 'qr_app/visPermittedVisit.html')
+    id=request.session['v_id']
+    permitted_request_list = QrAppVisitorVisitrequest.objects.filter(uid = id, permit = 1)
+    return render(request, 'qr_app/visPermittedVisit.html', {'permitted_request_list': permitted_request_list})
+
 
 def visQrDisplay(request):
     return render(request, 'qr_app/visQrDisplay.html')
