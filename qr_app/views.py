@@ -131,3 +131,8 @@ def permitTheRequest(request, id):
     theRequest.permit = 1
     theRequest.save()
     return render(request, 'qr_app/resAfterLogin.html')
+
+
+
+
+    

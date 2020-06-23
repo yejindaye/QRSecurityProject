@@ -140,3 +140,4 @@ USER_AGENTS_CACHE = 'default'
 # AUTH_USER_MODEL = 'app명.model class명'
 # AUTH_USER_MODEL = 'qr_app.QrAppResident'
 # AUTH_USER_MODEL = 'qr_app.QrAppResident'
+
