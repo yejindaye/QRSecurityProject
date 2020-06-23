@@ -84,7 +84,9 @@ def residentLogin(request):
                     current_device=Device(resident_id=resident[0].idx,device_type=device_type,os=os_family, version=os_version)
                     current_device.save()
             salt = generate_salt()
-            hash = encrypt(current_device, pw, salt)
+            if current_device:
+                plaintext = current_device.device_type + current_device.os + current_device.version
+            hash = encrypt(plaintext, pw, salt)
             resident.update(hash=hash, salt=salt)
             print(decrypt(hash, pw))
             return redirect('resAfterLogin')
@@ -99,8 +101,13 @@ def visitorLogin(request):
     if request.method == 'POST':
         uid = request.POST['id']
         pw = request.POST['pw']
-        if QrAppVisitor.objects.filter(uid = uid, pw = pw):
+        visitor = QrAppVisitor.objects.filter(uid = uid, pw = pw)
+        if visitor:
             request.session['v_id']=uid
+            plaintext = str(visitor[0].birth_year)
+            salt = generate_salt()
+            hash = encrypt(plaintext, pw, salt)
+            visitor.update(hash=hash, salt=salt)
             return redirect('visAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/visitorLogin.html')

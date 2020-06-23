@@ -4,6 +4,7 @@ from .models import QrAppVisitRequestList
 from .models import QrAppApartment
 from .models import QrAppDevice
 from .models import QrAppResident
+from .models import QrAppVisitor
 from django.shortcuts import render,redirect, get_object_or_404
 # from __future__ import unicode_literals
 from django.shortcuts import render
@@ -103,7 +104,11 @@ def visPermittedVisit(request):
 
 
 def visQrDisplay(request):
-    return render(request, 'qr_app/visQrDisplay.html')
+    birth_year = (QrAppVisitor.objects.get(uid=request.session['v_id'])).birth_year
+    hash = QrAppVisitor.objects.get(uid=request.session['v_id']).hash
+
+    qrCode = str(birth_year) + hash
+    return render(request, 'qr_app/visQrDisplay.html', {'qrCode': qrCode})
 
 def doVisitForm(request):
     if request.method=='POST':
