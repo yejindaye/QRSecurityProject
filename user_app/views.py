@@ -146,5 +146,4 @@ def residentSignUp(request):
         new_apartment.save()
         #os_info=request.user_agent.os
         return redirect('residentLogin')
-    return render(request, 'user_app/residentSignUp.html');             
- 
+    return render(request, 'user_app/residentSignUp.html');

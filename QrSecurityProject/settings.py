@@ -141,3 +141,4 @@ USER_AGENTS_CACHE = 'default'
 # AUTH_USER_MODEL = 'qr_app.QrAppResident'
 # AUTH_USER_MODEL = 'qr_app.QrAppResident'
 
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
