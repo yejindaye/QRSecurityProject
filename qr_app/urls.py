@@ -12,5 +12,5 @@ urlpatterns = [
     path('visAfterLogin/visQrDisplay', views.visQrDisplay,name="visQrDisplay"),
     path('visAfterLogin/doVisitForm/',views.doVisitForm, name="doVisitForm"),
     #path(r'^doVisitForm/',views.doVisitForm,name="doVisitForm"),
-
+    path('qrScan/', views.qrScan, name="qrScan"),
 ]
