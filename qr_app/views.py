@@ -104,7 +104,7 @@ def visPermittedVisit(request):
 
 
 def visQrDisplay(request):
-    user_id = (QrAppResident.objects.get(uid=request.session['v_id'])).uid
+    user_id = (QrAppVisitor.objects.get(uid=request.session['v_id'])).uid
     hash = QrAppVisitor.objects.get(uid=request.session['v_id']).hash
 
     qrCode = user_id + hash
@@ -139,8 +139,9 @@ def permitTheRequest(request, id):
 
 
 def qrScan(request):
-    result = scan()
-    return render(request,'qr_app/qrScan.html', {'result':result})
+    scan()
+    # result="asdf"
+    # return render(request,'qr_app/qrScan.html', {'result':result})
 
 
 
