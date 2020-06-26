@@ -36,4 +36,4 @@ def scan():
         if key == 27:
             break
 
-        return "인식성공"
+        # return "인식성공"

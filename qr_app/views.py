@@ -139,8 +139,9 @@ def permitTheRequest(request, id):
 
 
 def qrScan(request):
-    result = scan()
-    return render(request,'qr_app/qrScan.html', {'result':result})
+    scan()
+    # result="asdf"
+    # return render(request,'qr_app/qrScan.html', {'result':result})
 
 
 
