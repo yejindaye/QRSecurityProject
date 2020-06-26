@@ -12,6 +12,7 @@ from django.views import View
 from django.http import HttpResponse, JsonResponse
 from random import *
 import pdb
+from .qrScan import scan
 # import qrcode
 # import cv2
 
@@ -137,6 +138,10 @@ def permitTheRequest(request, id):
     theRequest.save()
     return render(request, 'qr_app/resAfterLogin.html')
 
+
+def qrScan(request):
+    result = scan()
+    return render(request,'qr_app/qrScan.html', {'result':result})
 
 
 
