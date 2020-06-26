@@ -15,7 +15,8 @@ def scan():
         for obj in decodedObjects:
             #print("Data", obj.data)
             cv2.putText(frame, (obj.data).decode('ascii'), (50, 50), font, 2, (255, 0, 0), 3)
-
+            if(qrCode == (obj.data).decode('ascii')):
+                cv2.putText("열렸다")
         cv2.imshow("Frame", frame)
 
         #읽어온 값 frame에서 사용자의 id와 해쉬값을 분리해야 한다
