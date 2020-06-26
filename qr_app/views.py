@@ -81,7 +81,6 @@ def resQrDisplay(request):
         #사용자 residentDB로 부터 hash값 받아오고 거기에 userid붙여서 qrCode에 저장
         hash = QrAppResident.objects.get(uid=request.session['r_id']).hash
         qrCode=user_id+hash
-    qrStartTime = time.time()
     return render(request, 'qr_app/resQrDisplay.html',{'qrCode':qrCode})  
 
 # 방문요청 허가 -> 방문요청 리스트 띄우기
