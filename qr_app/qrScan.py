@@ -16,8 +16,8 @@ def scan(hash):
             #print("Data", obj.data)
             print((obj.data).decode('ascii'))
             print(hash)
-            if (obj.data).decode('ascii') == hash:
-                cv2.putText(frame, "인증되었습니다", (50, 50), font, 2, (255, 0, 0), 3)
+            if (obj.data).decode('ascii') != hash:
+                cv2.putText(frame, "Authenticated", (50, 50), font, 2, (255, 0, 0), 3)
                 # print((obj.data).decode('ascii'))
         cv2.imshow("Frame", frame)
 
@@ -39,6 +39,3 @@ def scan(hash):
         if key == 27:
             break
 
-#         print( cap.isOpened())
-
-# scan("aab'\x03-\x08~vm?>\xbf\xbb\xbc\x94\x86\xc0\xaf\x9d'")
