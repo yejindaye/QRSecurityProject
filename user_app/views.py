@@ -146,4 +146,18 @@ def residentSignUp(request):
         new_apartment.save()
         #os_info=request.user_agent.os
         return redirect('residentLogin')
-    return render(request, 'user_app/residentSignUp.html');
+    return render(request, 'user_app/residentSignUp.html')
+
+
+def residentLogout(request):
+    request.session['r_id']={}
+    request.session.modified = True
+    return redirect('index')
+
+def visitorLogout(request):
+    request.session['v_id'] = {}
+    request.session.modified = True
+    return redirect('index')
+
+
+
