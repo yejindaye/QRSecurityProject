@@ -4,7 +4,7 @@ import pyzbar.pyzbar as pyzbar
 import json
 #from .models import QrAppResident
 
-def scan():
+def scan(hash):
     cap = cv2.VideoCapture(0)
     font = cv2.FONT_HERSHEY_PLAIN
 
@@ -14,9 +14,11 @@ def scan():
         decodedObjects = pyzbar.decode(frame)
         for obj in decodedObjects:
             #print("Data", obj.data)
-            cv2.putText(frame, (obj.data).decode('ascii'), (50, 50), font, 2, (255, 0, 0), 3)
-            if(qrCode == (obj.data).decode('ascii')):
-                cv2.putText("열렸다")
+            print((obj.data).decode('ascii'))
+            print(hash)
+            if (obj.data).decode('ascii') == hash:
+                cv2.putText(frame, "인증되었습니다", (50, 50), font, 2, (255, 0, 0), 3)
+                # print((obj.data).decode('ascii'))
         cv2.imshow("Frame", frame)
 
         #읽어온 값 frame에서 사용자의 id와 해쉬값을 분리해야 한다
@@ -37,4 +39,6 @@ def scan():
         if key == 27:
             break
 
-        # return "인식성공"
+        print( cap.isOpened())
+
+scan("aab'\x03-\x08~vm?>\xbf\xbb\xbc\x94\x86\xc0\xaf\x9d'")
