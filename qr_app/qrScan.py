@@ -38,3 +38,7 @@ def scan(hash):
         key = cv2.waitKey(1)
         if key == 27:
             break
+
+        print( cap.isOpened())
+
+scan("aab'\x03-\x08~vm?>\xbf\xbb\xbc\x94\x86\xc0\xaf\x9d'")
