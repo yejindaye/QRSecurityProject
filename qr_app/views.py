@@ -105,10 +105,10 @@ def visPermittedVisit(request):
 
 
 def visQrDisplay(request):
-    birth_year = (QrAppVisitor.objects.get(uid=request.session['v_id'])).birth_year
+    user_id = (QrAppResident.objects.get(uid=request.session['v_id'])).uid
     hash = QrAppVisitor.objects.get(uid=request.session['v_id']).hash
 
-    qrCode = str(birth_year) + hash
+    qrCode = user_id + hash
     return render(request, 'qr_app/visQrDisplay.html', {'qrCode': qrCode})
 
 def doVisitForm(request):
