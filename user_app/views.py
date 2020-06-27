@@ -73,23 +73,26 @@ def residentLogin(request):
             device_check = False
             current_device = None
 
-            if len(devices) > 3:
-                messages.info(request, '등록 가능한 디바이스 수를 초과하였습니다.')
-            else:
-                for device in devices:
-                    if device.version == os_version:
-                        device_check = True
-                        current_device = device
-                if device_check == False: #
+
+            for device in devices:
+                if device.version == os_version:
+                    device_check = True
+                    current_device = device
+            if device_check == False: #
+                if len(devices) == 3:
+                    messages.info(request, '등록 가능한 디바이스 수를 초과하였습니다.')
+                    return render(request, 'user_app/residentLogin.html')
+                else:
                     current_device=Device(resident_id=resident[0].idx,device_type=device_type,os=os_family, version=os_version)
                     current_device.save()
-                salt = generate_salt()
-                if current_device:
-                    plaintext = current_device.device_type + current_device.os + current_device.version
-                hash = encrypt(plaintext, pw, salt)
-                resident.update(hash=hash, salt=salt)
-                print(decrypt(hash, pw))
-                return redirect('resAfterLogin')
+            salt = generate_salt()
+            if current_device:
+                plaintext = current_device.device_type + current_device.os + current_device.version
+            
+            hash = encrypt(plaintext, pw, salt)
+            resident.update(hash=hash, salt=salt)
+            print(decrypt(hash, pw))
+            return redirect('resAfterLogin')
         messages.info(request, '없는 계정이거나 비밀번호가 일치하지 않습니다.')    
         return render(request, 'user_app/residentLogin.html')
     return render(request, 'user_app/residentLogin.html')

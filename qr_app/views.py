@@ -143,9 +143,10 @@ def qrScan(request):
     #resident = QrAppResident.objects.get(uid=uid)
     #hash = uid + resident.hash
     users = QrAppResident.objects.all()
+    # print(users)
     scan(users)
     #print(a.all)
-    # return render(request,'qr_app/qrScan.html', {'result':result})
+    return render(request,'qr_app/qrScan.html')
 
 
 def vis_qrScan(request):
