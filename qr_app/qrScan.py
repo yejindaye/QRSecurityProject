@@ -21,7 +21,7 @@ def scan(users):
             for user in users:
                 uid = user.uid
                 hash = uid + user.hash
-
+                print(hash)
 
                 if (hash == (obj.data).decode('ascii')):
                     temp='authenticated'
