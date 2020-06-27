@@ -4,7 +4,7 @@ import pyzbar.pyzbar as pyzbar
 import json
 #from .models import QrAppResident
 
-def scan(hash):
+def scan(residents):
     cap = cv2.VideoCapture(0)
     font = cv2.FONT_HERSHEY_PLAIN
 
@@ -16,9 +16,12 @@ def scan(hash):
             #print("Data", obj.data)
             print((obj.data).decode('ascii'))
             print(hash)
-            if (obj.data).decode('ascii') != hash:
-                cv2.putText(frame, "Authenticated", (50, 50), font, 2, (255, 0, 0), 3)
-                # print((obj.data).decode('ascii'))
+            for resident in residents:
+                uid = resident.id
+                hash = uid + resident.hash
+                if (obj.data).decode('ascii') == hash:
+                    cv2.putText(frame, "Authenticated", (50, 50), font, 2, (255, 0, 0), 3)
+                    # print((obj.data).decode('ascii'))
         cv2.imshow("Frame", frame)
 
         #읽어온 값 frame에서 사용자의 id와 해쉬값을 분리해야 한다
