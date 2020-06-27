@@ -13,4 +13,5 @@ urlpatterns = [
     path('visAfterLogin/doVisitForm/',views.doVisitForm, name="doVisitForm"),
     #path(r'^doVisitForm/',views.doVisitForm,name="doVisitForm"),
     path('qrScan/', views.qrScan, name="qrScan"),
+    path('vis_qrScan/', views.vis_qrScan, name="vis_qrScan"),
 ]

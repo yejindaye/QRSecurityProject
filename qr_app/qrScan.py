@@ -4,7 +4,7 @@ import pyzbar.pyzbar as pyzbar
 import json
 #from .models import QrAppResident
 
-def scan(hash):
+def scan(users):
     cap = cv2.VideoCapture(0)
     font = cv2.FONT_HERSHEY_PLAIN
 
@@ -15,11 +15,36 @@ def scan(hash):
         for obj in decodedObjects:
             #print("Data", obj.data)
             print((obj.data).decode('ascii'))
-            print(hash)
-            if (obj.data).decode('ascii') != hash:
+            #print(hash)
+            getInfo=(obj.data).decode('ascii')
+
+            for user in users:
+                uid = user.uid
+                hash = uid + user.hash
+
+
+                if (hash == (obj.data).decode('ascii')):
+                    temp='authenticated'
+                    break
+                    #cv2.putText(frame, hash, (50, 50), font, 2, (255, 0, 0), 3)
+
+                    #cv2.putText(frame, "Authenticated", (50, 50), font, 2, (255, 0, 0), 3)
+                elif (hash!=(obj.data).decode('ascii')):
+                    temp='unauthenticated'
+                    #cv2.putText(frame, hash, (50, 50), font, 2, (255, 0, 0), 3)
+
+            cv2.putText(frame, temp, (50, 50), font, 2, (255, 0, 0), 3)
+
+
+                    #cv2.putText(frame, "unAuthenticated", (50, 50), font, 2, (255, 0, 0), 3)
+
+            """if (obj.data).decode('ascii') == hash:
                 cv2.putText(frame, "Authenticated", (50, 50), font, 2, (255, 0, 0), 3)
-                # print((obj.data).decode('ascii'))
+            else:
+                cv2.putText(frame,"Unauthenticated",(50, 50), font, 2, (255, 0, 0), 3)
+                # print((obj.data).decode('ascii'))"""
         cv2.imshow("Frame", frame)
+
 
         #읽어온 값 frame에서 사용자의 id와 해쉬값을 분리해야 한다
         #먼저 거주가 id받아옴
@@ -35,7 +60,10 @@ def scan(hash):
             #안같으면 문안열림
             else:
                 cv2.imshow("Frame",'door is not opened')"""
+
         key = cv2.waitKey(1)
+
+
         if key == 27:
             break
 
