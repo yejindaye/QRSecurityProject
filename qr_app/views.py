@@ -139,10 +139,18 @@ def permitTheRequest(request, id):
 
 
 def qrScan(request):
-    uid = request.session['r_id']
-    residents = QrAppResident.objects.all()
-    scan(residents)
+    #uid = request.session['r_id']
+    #resident = QrAppResident.objects.get(uid=uid)
+    #hash = uid + resident.hash
+    users = QrAppResident.objects.all()
+    scan(users)
+    #print(a.all)
     # return render(request,'qr_app/qrScan.html', {'result':result})
+
+
+def vis_qrScan(request):
+    users = QrAppVisitor.objects.all()
+    scan(users)
 
 
 
