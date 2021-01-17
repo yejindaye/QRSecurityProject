@@ -2,15 +2,15 @@
 
 기업사회맞춤형프로젝트1(2020-1)
 ##
-### 팀   원
+## 팀   원
 * 2016112185 박지수
 * 2016112128 지선아
 * 2017112128 문예진
 <br><br>
-### 결과 화면 ##
+## 결과 화면
 ![first](https://user-images.githubusercontent.com/48276738/104832122-09757080-58d2-11eb-9205-80041da9985c.png)
 <br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. 로그인 화면 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. 세대원 회원가입 화면 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 방문객 회원가입 화면
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;1. 로그인 화면 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 2. 세대원 회원가입 화면 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;3. 방문객 회원가입 화면
 <br>
 <br>
 ![second](https://user-images.githubusercontent.com/48276738/104832292-a389e880-58d3-11eb-8661-2dd2eed2ce97.png)
@@ -26,7 +26,7 @@
 
 <br>
 
-### 실행 영상 ##
+## 실행 영상
 https://user-images.githubusercontent.com/48276738/104833087-7cceb080-58d9-11eb-85bc-70b8e4325521.mp4
 <br>
 <br>
