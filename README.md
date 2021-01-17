@@ -28,6 +28,7 @@
 <br>
 ## 실행 영상
 
+https://user-images.githubusercontent.com/48276738/104833087-7cceb080-58d9-11eb-85bc-70b8e4325521.mp4
 
 
 ##
