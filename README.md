@@ -23,18 +23,7 @@
 <br>
 7. 방문객 dgu로 로그인 한 화면  &nbsp; 8. 방문 신청서 화면 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;9. 방문객의 허가된 방문 요청 리스트 화면
 <br>
-<br>
-![fourth](https://user-images.githubusercontent.com/48276738/104832294-a4227f00-58d3-11eb-8e91-26fcf7a03eb7.png)
-<br>
-qrcode 인증 성공 화면
-<br><br>
-![fifth](https://user-images.githubusercontent.com/48276738/104832290-a258bb80-58d3-11eb-8570-eb6809a747f3.png)
-<br>
-qrcode 인증 실패하여 출입 제한되는 화면
-<br><br>
-![s](https://user-images.githubusercontent.com/48276738/104832291-a389e880-58d3-11eb-8b68-aaa7c750f3a6.png)
-<br>
-등록 가능한 디바이스를 초과하였을 시 화면
+
 
 <br>
 ## 실행 영상
