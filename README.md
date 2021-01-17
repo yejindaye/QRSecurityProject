@@ -32,6 +32,6 @@
 https://user-images.githubusercontent.com/48276738/104833087-7cceb080-58d9-11eb-85bc-70b8e4325521.mp4
 <br>
 <br>
-[![실행영상](https://img.youtube.com/vi/1_t6GtpJs5k/1.jpg)](https://www.youtube.com/watch?v=1_t6GtpJs5k?t=1s)
+[![실행영상](https://img.youtube.com/vi/1_t6GtpJs5k/1.jpg)](https://www.youtube.com/watch?v=1_t6GtpJs5k?t=0s)
 ##
 ## 해당 웹 어플리케이션에 대한 자세한 내용은 최종보고서를 참조해주세요
